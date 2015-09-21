@@ -10,7 +10,7 @@ public class Recipe {
     //private float protein;
     //private float etc;
     private String instructions;
-    private List<objects> ingredients;
+    //private List<objects> ingredients;
 
     public Recipe(String name, int rating, String instructions){
         //TODO: adapt to the nutr attr struct
