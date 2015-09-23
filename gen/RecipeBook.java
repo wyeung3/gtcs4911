@@ -7,16 +7,24 @@ import java.util.List;
  */
 public class RecipeBook {
 
-    private List<Recipe> recipeBook;
-    private List<Recipe> recipes;
+    private List<Recipe> recipeBook; //permanent book
+    private List<Recipe> recipes;   //temporary list of all returned recipes from an API call
 
     public RecipeBook(List<Recipe> recipeBook){
         this.recipeBook = recipeBook;
     }
 
-    private void clearRecipeBook(){
+    public void addRecipe(Recipe recipe) {
+        recipeBook.add(recipe);
+    }
+
+    public void removeRecipe(Recipe recipe){
+        recipeBook.remove(recipe);
+    }
+
+    public void clearRecipeBook(){
         //recipeBook = Collections.<Recipe>emptyList();
-        recipeBook.clear();
+        recipeBook.clear(); //possible resizing issues
     }
 
     private void clearRecipes(){
@@ -25,8 +33,8 @@ public class RecipeBook {
        //doesnt resize recipes? Double check, should resize if it is arrayList
     }
 
-    // List<Recipe> getRecipe(List<String> names){ //can't overload these do to type erasure
-    // List<Recipe> getRecipe(List<int> ratings) { //need to check if passing in an arrayList will work with array
+    //public List<Recipe> getRecipe(List<String> names){ }//can't overload these do to type erasure
+    //public List<Recipe> getRecipe(List<Integer> ratings) { }//need to check if passing in an arrayList will work with array
 
     public List<Recipe> getRecipe(String[] names){ //may need to use .toArray() on arrayList to pass in to method
         List<Recipe> results = new ArrayList<Recipe>();

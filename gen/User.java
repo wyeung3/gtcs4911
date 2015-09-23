@@ -21,19 +21,11 @@ public class User {
         this.recipeBook = recipeBook;
         //this.mealPlan = mealPlan;
     }
-
-    private void setPreferences(Item item){
-        preferences.add(item);
-    }
-    private void setAllergies(Item item){
-        allergies.add(item);
-    }
-    private void removeAllergies(Item item){
-        allergies.remove(item);
-    }
-    private void removePreferences(Item item){
-        preferences.remove(item);
-    }
+    //TODO: getters/Setters for instance variables?
+    private void setPreferences(Item item){preferences.add(item);}
+    private void setAllergies(Item item){allergies.add(item);}
+    private void removeAllergies(Item item){allergies.remove(item);}
+    private void removePreferences(Item item){preferences.remove(item);}
 
     private List<Plan> getMealPlan(){
         return mealPlan;

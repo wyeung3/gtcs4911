@@ -1,6 +1,4 @@
 import java.sql.Time;
-import java.util.Date;
-
 
 /**
  * Created by tehub on 9/21/2015.
@@ -31,4 +29,8 @@ public class Plan {
     public Time getTime(){
         return time;
     }
+
+    public void setRecipe(Recipe recipe) {this.recipe = recipe;}
+    public void setName(String name) {this.name = name;}
+    public void setTime(Time time) {this.time = time;}
 }

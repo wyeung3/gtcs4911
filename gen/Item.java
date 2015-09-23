@@ -1,3 +1,5 @@
+import java.util.Map;
+
 /**
  * Created by tehub on 9/21/2015.
  */
@@ -6,36 +8,30 @@ public class Item {
     int code; //USDA food code
     String name; //name of the item
     float quantity; //quantity IE mL, gallons, teaspoons etc
-    //TODO: add list of nutrional attributes
+    private Map<String, Float> nutrAttr;
 
-    public Item(int code, String name, float quantity){
+    public Item(int code, String name, float quantity, Map<String, Float> nutrAttr){
         this.code = code;
         this.name = name;
         this.quantity = quantity;
+        this.nutrAttr = nutrAttr;
 
-        //TODO: Add nutrional attributes to constructor
-        // Add try catch for nulls?
     }
 
-    public String getName(){
-        return name;
-    }
+    public String getName() {return name;}
 
-    public float getQuantity(){
-        return quantity;
-    }
+    public float getQuantity() {return quantity;}
 
-    public void setName(String name){
-        this.name = name;
-    }
+    public int getCode() {return code;}
 
-    public void setCode(int code){
-        this.code = code;
-    }
+    public Map<String, Float> getNutrAttr(){return nutrAttr;}
 
-    public void setQuantity(float quantity){
-        this.quantity = quantity;
-    }
+    public void setName(String name) {this.name = name;}
 
-    //TODO: add get/set methods for nutrional attributes
+    public void setCode(int code) {this.code = code;}
+
+    public void setQuantity(float quantity) {this.quantity = quantity;}
+
+    public void setNutrAttr(Map<String, Float> nutrAttr) {this.nutrAttr = nutrAttr;}
+
 }
