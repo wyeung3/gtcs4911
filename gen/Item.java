@@ -5,12 +5,12 @@ import java.util.Map;
  */
 public class Item {
     //
-    int code; //USDA food code
+    Integer code; //USDA food code
     String name; //name of the item
-    float quantity; //quantity IE mL, gallons, teaspoons etc
+    Float quantity; //quantity IE mL, gallons, teaspoons etc
     private Map<String, Float> nutrAttr;
 
-    public Item(int code, String name, float quantity, Map<String, Float> nutrAttr){
+    public Item(Integer code, String name, Float quantity, Map<String, Float> nutrAttr){
         this.code = code;
         this.name = name;
         this.quantity = quantity;
