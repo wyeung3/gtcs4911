@@ -10,9 +10,10 @@ public class User {
 
     private List<Item> preferences;
     private List<Item> allergies;
-    private Inventory inventory;
-    private RecipeBook recipeBook;
-    private List<Plan> mealPlan;
+
+    public Inventory inventory;
+    public RecipeBook recipeBook;
+    public List<Plan> mealPlan;
 
     public User(List<Item> preferences, List<Item> allergies, Inventory inventory, RecipeBook recipeBook) {
         // constructor
@@ -23,17 +24,20 @@ public class User {
         //this.mealPlan = mealPlan;
     }
     //TODO: getters/Setters for instance variables?
-    private void setPreferences(Item item){preferences.add(item);}
-    private void setAllergies(Item item){allergies.add(item);}
-    private void removeAllergies(Item item){allergies.remove(item);}
-    private void removePreferences(Item item){preferences.remove(item);}
-
-    private List<Plan> getMealPlan(){
-        return mealPlan;
-    }
+    public void setPreferences(Item item){preferences.add(item);}
+    public void setAllergies(Item item){allergies.add(item);}
+    public void removeAllergies(Item item){allergies.remove(item);}
+    public void removePreferences(Item item){preferences.remove(item);}
+    public List<Item> getPreferences() {return preferences;}
+    public List<Item> getAllergies() {return allergies;}
+    public Inventory getInventory() {return inventory;}
+    public RecipeBook getRecipeBook() {return recipeBook;}
+    public List<Plan> getMealPlan() {return mealPlan;}
+    public void setInventory(Inventory inventory) {this.inventory = inventory;}
+    public void setRecipeBook(RecipeBook recipeBook) {this.recipeBook = recipeBook;}
+    public void setMealPlan(List<Plan> mealPlan) {this.mealPlan = mealPlan;}
 
     //TODO: search(), generateMealPlan(), createPlan()
-
 
 
 }
