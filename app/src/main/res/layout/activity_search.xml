@@ -1,0 +1,36 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.projectbasil.projectbasil.SearchActivity">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Populating ListView with Recipe List"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/buttonShowRecipes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Recipe List"
+        android:layout_below="@+id/textView1" />
+
+
+    <ListView
+        android:id="@+id/listViewRecipes"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="0.1dp"
+        android:divider="#0000CC"
+        android:layout_below="@+id/buttonShowRecipes"
+        >
+    </ListView>
+</RelativeLayout>
