@@ -15,7 +15,7 @@ public class Inventory {
         inventory.add(item);
     }
     public List<Item> getInventory(){
-        return inventory;
+        return this.inventory;
     }
     public Item getItem(String name){
         Item temp = new Item(null,null,null,null);
@@ -27,6 +27,7 @@ public class Inventory {
         Item temp = new Item(null,null,null,null);
         return temp;
     }
+
     //TODO: public void addItemManually(){
         //  Maybe should be in user or some manager class
         //
