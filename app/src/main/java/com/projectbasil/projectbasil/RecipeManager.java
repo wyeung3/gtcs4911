@@ -1,3 +1,5 @@
+package com.projectbasil.projectbasil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,15 +36,18 @@ public class RecipeManager {
      * @param items A list of available items.
      * @return
      */
-    public static List<Recipe> getRecipe(Inventory inventory) throws IOException, JSONException
+    public static List<Recipe> getRecipe(Inventory inventory) //throws IOException, JSONException
     {
-        String parameters = "&ingredients=" + inventory.getItems();
-        for(Item item: inventory.getItems())
-        {
-            parameters += item.getName() + ",";
+        try {
+            String parameters = "&ingredients=" + inventory.getInventory();
+            for (Item item : inventory.getInventory()) {
+                parameters += item.getName() + ",";
+            }
+            parameters.substring(0, parameters.length() - 1);
+            return buildRecipe(apiUrl + parameters);
+        } catch (Exception E) {
+            return null;
         }
-        parameters.substring(0, parameters.length() - 1);
-        return buildRecipe(apiUrl + parameters);
     }
 
     private static String readAll(BufferedReader rd) throws IOException {
@@ -66,7 +71,7 @@ public class RecipeManager {
         for(int x = 0; x < allRecipes.length(); x++)
         {
             JSONObject recipeHere = allRecipes.getJSONObject(x);
-            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("ingredients")));
+            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("ingredients"),null,null));
         }
 
         return toReturn;
