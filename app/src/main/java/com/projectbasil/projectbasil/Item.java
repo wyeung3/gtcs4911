@@ -3,6 +3,7 @@ import java.util.Map;
 
 /**
  * Created by tehub on 9/21/2015.
+ * Container class for holding ingredient information
  */
 public class Item {
     //
@@ -34,5 +35,10 @@ public class Item {
     public void setQuantity(float quantity) {this.quantity = quantity;}
 
     public void setNutrAttr(Map<String, Float> nutrAttr) {this.nutrAttr = nutrAttr;}
+
+    @Override
+    public String toString() {
+        return name;
+    }
 
 }

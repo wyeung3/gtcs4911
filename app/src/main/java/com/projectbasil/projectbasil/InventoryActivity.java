@@ -11,20 +11,21 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryActivity extends AppCompatActivity {
-    private ArrayList<String> inventory;
+    private Inventory inventory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        inventory = new ArrayList<>();
+        inventory = new Inventory();
         populateInventory();
 
         // Set OnClickListener on button, transition when clicked?
-        Button addItemBtn = (Button)findViewById(R.id.buttonShowRecipes);
+        Button addItemBtn = (Button)findViewById(R.id.buttonAddItem);
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //transition to addItem screen?
@@ -34,11 +35,11 @@ public class InventoryActivity extends AppCompatActivity {
 
         // Set OnClickListener on button
         // When clicked, pop up overlay of checkboxes and remove all selected?
-        Button removeItemBtn = (Button)findViewById(R.id.buttonShowRecipes);
+        Button removeItemBtn = (Button)findViewById(R.id.buttonRemoveItem);
         removeItemBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //transition to addItem screen?
-                Toast.makeText(getApplicationContext(), "Add Item screen here", Toast.LENGTH_LONG).show();
+                //remove item, refresh
+                Toast.makeText(getApplicationContext(), "Remove Item then refresh", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -67,19 +68,10 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void populateInventory() {
         ListView listViewInventory=(ListView)findViewById(R.id.listViewInventory);
-        inventory = fetchInventory();
+        GlobalVars instance = GlobalVars.getInstance();
+        inventory = instance.getInventory();
         InventoryAdapter inventoryAdapter = new InventoryAdapter(inventory, this);
         listViewInventory.setAdapter(inventoryAdapter);
         //custom adapter handles onClick events per item
     }
-
-    private ArrayList<String> fetchInventory() {
-        ArrayList list = new ArrayList<String>();
-        for (int i = 0; i < 10; i++)
-        {
-            list.add("Inventory Item " + i);
-        }
-        return list;
-    }
-
 }

@@ -5,55 +5,46 @@ import java.util.List;
 
 /**
  * Created by tehub on 9/21/2015.
+ * Container class for a list of recipes
  */
 public class RecipeBook {
 
-    private List<Recipe> recipeBook; //permanent book
-    private List<Recipe> recipes;   //temporary list of all returned recipes from an API call
+    private List<Recipe> favorites; //permanent book of recipes
 
-    public RecipeBook(List<Recipe> recipeBook){
-        this.recipeBook = recipeBook;
+    /**
+     * Loads favorites from local storage
+     * @param savedFavorites a list of recipes saved locally by user
+     */
+    public RecipeBook(List<Recipe> savedFavorites){
+        //TODO: change from taking in parameter to actually loading from local storage
+        this.favorites = savedFavorites;
     }
 
-    public void addRecipe(Recipe recipe) {
-        recipeBook.add(recipe);
+    public void addFavoriteRecipe(Recipe recipe) {
+        favorites.add(recipe);
+        //TODO: save change to locally stored favorites recipebook
     }
 
-    public void removeRecipe(Recipe recipe){
-        recipeBook.remove(recipe);
+    public void removeFavoriteRecipe(Recipe recipe){
+        favorites.remove(recipe);
+        //TODO: save change to locally stored favorites recipebook
     }
 
-    public void clearRecipeBook(){
-        //recipeBook = Collections.<Recipe>emptyList();
-        recipeBook.clear(); //possible resizing issues
+    public void clearFavorites(){
+        favorites.clear(); //possible resizing issues
+        //TODO: save change to locally stored favorites recipebook
     }
 
-    private void clearRecipes(){
-        //recipes = Collections.<Recipe>emptyList();
-        recipes.clear();
-       //doesnt resize recipes? Double check, should resize if it is arrayList
+    public static List<Recipe> getRecipe(Inventory inventory){
+        return RecipeManager.getRecipe(inventory);
     }
 
-    //public List<Recipe> getRecipe(List<String> names){ }//can't overload these do to type erasure
-    //public List<Recipe> getRecipe(List<Integer> ratings) { }//need to check if passing in an arrayList will work with array
-
-    public List<Recipe> getRecipe(String[] names){ //may need to use .toArray() on arrayList to pass in to method
-        List<Recipe> results = new ArrayList<Recipe>();
-        //TODO:parse recipes for names given
-        return results;
-    }
+    /*
     public List<Recipe> getRecipe(int[] ratings) {
         List<Recipe> results = new ArrayList<Recipe>();
-        //TODO: parse recipes for ratings given
+        //TODO: sort results by rating?
         return results;
     }
-
-    public void populateRecipes() {
-        //TODO call database API with Query from User
-    }
-
-    //TODO: setFavorite(), removeFavorite()
-
-    //TODO: sortBy rating/inventory
+    */
 
 }

@@ -12,10 +12,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private ArrayList<String> recipeList;
+    private List<Recipe> recipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,28 +56,20 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void populateRecipeList() {
+        GlobalVars instance = GlobalVars.getInstance();
         ListView listViewRecipes=(ListView)findViewById(R.id.listViewRecipes);
-        recipeList = searchRecipes();
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, recipeList);
+        recipeList = RecipeBook.getRecipe(instance.getInventory());
+        ArrayAdapter<Recipe> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, recipeList);
         listViewRecipes.setAdapter(arrayAdapter);
 
         // register onClickListener to handle click events on each item
         listViewRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // argument position gives the index of item which is clicked
             public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                String selectedRecipe = recipeList.get(position);
+                String selectedRecipe = recipeList.get(position).getName();
                 Toast.makeText(getApplicationContext(), "Recipe Selected : " + selectedRecipe, Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    private ArrayList<String> searchRecipes() {
-        ArrayList list = new ArrayList<String>();
-        for (int i = 0; i < 10; i++)
-        {
-            list.add("Recipe " + i);
-        }
-        return list;
     }
 
 }

@@ -11,15 +11,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Walton on 10/14/2015.
+ * Custom ListAdapter for listing inventory
  */
 public class InventoryAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> inventory = new ArrayList<String>();
+    private Inventory inventory = new Inventory();
     private Context context;
 
-    public InventoryAdapter(ArrayList<String> list, Context context) {
+    public InventoryAdapter(Inventory inventory, Context context) {
         this.inventory = inventory;
         this.context = context;
     }
@@ -31,7 +33,7 @@ public class InventoryAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public Object getItem(int index) {
-        return inventory.get(index);
+        return inventory.getItemByIndex(index);
     }
 
     @Override
@@ -50,7 +52,7 @@ public class InventoryAdapter extends BaseAdapter implements ListAdapter {
 
         //Handle TextView, display item name
         TextView listItemText = (TextView)view.findViewById(R.id.list_item);
-        listItemText.setText(inventory.get(position));
+        listItemText.setText(inventory.getItemByIndex(position).getName());
 
         //Handle edit button, add onClickListener
         Button editBtn = (Button)view.findViewById(R.id.edit_btn);
@@ -59,7 +61,7 @@ public class InventoryAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 //transition to edit UI?
-                String selectedItem = inventory.get(position);
+                Item selectedItem = inventory.getItemByIndex(position);
                 Toast.makeText(context.getApplicationContext(), "Inventory Item Selected : " + selectedItem, Toast.LENGTH_LONG).show();
                 notifyDataSetChanged(); //hey look, data changed!
             }

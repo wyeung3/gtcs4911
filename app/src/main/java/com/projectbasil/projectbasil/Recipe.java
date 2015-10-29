@@ -4,6 +4,7 @@ import java.util.Map;
 
 /**
  * Created by tehub on 9/21/2015.
+ * Container class for holding a recipe
  */
 public class Recipe {
 
@@ -44,6 +45,11 @@ public class Recipe {
     }
     public List<Item> getIngredients(){
         return ingredients;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     //TODO: Format instructions here?

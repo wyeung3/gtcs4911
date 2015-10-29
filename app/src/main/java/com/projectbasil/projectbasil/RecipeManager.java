@@ -16,6 +16,7 @@ import org.json.JSONArray;
 
 /**
  * Created by Marc on 10/5/2015.
+ * Manager for API calls to recipe database
  */
 public class RecipeManager {
     private final static String apiKey = "20b007f3c89a4eb35710c9312abf9e36";
@@ -24,7 +25,7 @@ public class RecipeManager {
     /**
      *
      * @param nutrition:
-     * @return
+     * @return a list of recipes
      */
     public static List<Recipe> getRecipes(HashMap<String, Integer> nutrition)
     {
@@ -32,18 +33,32 @@ public class RecipeManager {
     }
 
     /**
-     *
-     * @param items A list of available items.
-     * @return
+     * @param inventory A list of items in the user's inventory / their kitchen stock.
+     * @return a list of recipes based on inventory stock
      */
     public static List<Recipe> getRecipe(Inventory inventory) //throws IOException, JSONException
     {
         try {
-            String parameters = "&ingredients=" + inventory.getInventory();
+            String parameters = "&ingredients=";
             for (Item item : inventory.getInventory()) {
                 parameters += item.getName() + ",";
             }
-            parameters.substring(0, parameters.length() - 1);
+            parameters = parameters.substring(0, parameters.length() - 1);
+            return buildRecipe(apiUrl + parameters);
+        } catch (Exception E) {
+            return null;
+        }
+    }
+
+    /**
+     * @param itemName a specific string to search by
+     * @return list of recipes found by searching given string
+     */
+    public static List<Recipe> getRecipeByString(String itemName) //throws IOException, JSONException
+    {
+        try {
+            String parameters = "&ingredients=" + itemName;
+            parameters = parameters.substring(0, parameters.length() - 1);
             return buildRecipe(apiUrl + parameters);
         } catch (Exception E) {
             return null;
@@ -61,7 +76,7 @@ public class RecipeManager {
 
     private static List<Recipe> buildRecipe(String request) throws IOException, JSONException
     {
-        ArrayList<Recipe> toReturn = new ArrayList<Recipe>();
+        ArrayList<Recipe> toReturn = new ArrayList<>();
 
         InputStream input = new URL(request).openStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-*")));
