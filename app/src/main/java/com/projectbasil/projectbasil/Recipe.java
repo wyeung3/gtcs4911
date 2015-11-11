@@ -12,9 +12,9 @@ public class Recipe {
     private String name;
     private int rating; //-1 to 5 (-1 meaning no rating)
     private String instructions;
-    private List<String> ingredients;
+    private List<Item> ingredients;
 
-    public Recipe(String name, int rating, String instructions, Map<String, Float> nutrAttr, List<String> ingredients){
+    public Recipe(String name, int rating, String instructions, Map<String, Float> nutrAttr, List<Item> ingredients){
         this.nutrAttr = nutrAttr;
         this.ingredients = ingredients;
         this.name = name;
@@ -43,7 +43,7 @@ public class Recipe {
     public Map<String, Float> getNutrAttr(){
         return nutrAttr;
     }
-    public List<String> getIngredients(){
+    public List<Item> getIngredients(){
         return ingredients;
     }
 

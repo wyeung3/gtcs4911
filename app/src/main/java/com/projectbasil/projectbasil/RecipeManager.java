@@ -21,7 +21,6 @@ import org.json.JSONArray;
 public class RecipeManager {
     private final static String apiKey = "20b007f3c89a4eb35710c9312abf9e36";
     private final static String apiUrl = "http://food2fork.com/api/search?key=" + apiKey;
-    private final static String apiRecipeUrl = "http://food2fork.com/api/get?key=";
 
     /**
      *
@@ -32,17 +31,6 @@ public class RecipeManager {
     {
         return null;
     }
-    public static Recipe getRecipeFromId(int id)
-    {
-        try {
-            return buildRecipe(apiRecipeUrl + apiKey + "&id=" + id).get(0);
-        }
-        catch(Exception e)
-        {
-            return null;
-        }
-    }
-
 
     /**
      * @param inventory A list of items in the user's inventory / their kitchen stock.
@@ -69,7 +57,7 @@ public class RecipeManager {
     public static List<Recipe> getRecipeByString(String itemName) //throws IOException, JSONException
     {
         try {
-            String parameters = "&q=" + itemName;
+            String parameters = "&ingredients=" + itemName;
             parameters = parameters.substring(0, parameters.length() - 1);
             return buildRecipe(apiUrl + parameters);
         } catch (Exception E) {
@@ -100,27 +88,6 @@ public class RecipeManager {
             JSONObject recipeHere = allRecipes.getJSONObject(x);
             toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("ingredients"),null,null));
         }
-
-        return toReturn;
-    }
-
-    private static Recipe buildIdRecipe(String request) throws IOException, JSONException
-    {
-        InputStream input = new URL(request).openStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-*")));
-        JSONObject json = new JSONObject(readAll(reader));
-
-        JSONArray result = json.getJSONArray("");
-
-        JSONObject recipeHere = result.getJSONObject(0);
-        JSONArray t = recipeHere.getJSONArray("ingredients");
-        ArrayList<String> ingredients = new ArrayList<String>();
-        for(int x = 0; x < t.length(); x++)
-        {
-            ingredients.add(t.getString(x));
-        }
-        Recipe toReturn = new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
-                "", null,ingredients);
 
         return toReturn;
     }
