@@ -16,21 +16,23 @@
         android:text="Populating ListView with Recipe List"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/buttonShowRecipes"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Recipe List"
-        android:layout_below="@+id/textView1" />
-
-
     <ListView
         android:id="@+id/listViewRecipes"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:dividerHeight="0.1dp"
         android:divider="#0000CC"
-        android:layout_below="@+id/buttonShowRecipes"
+        android:layout_below="@+id/textView1"
         >
     </ListView>
+
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="No recipes found!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/textView1" />
 </RelativeLayout>

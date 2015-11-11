@@ -1,5 +1,6 @@
 package com.projectbasil.projectbasil;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,13 +40,14 @@ public class RecipeManager {
     public static List<Recipe> getRecipe(Inventory inventory) //throws IOException, JSONException
     {
         try {
-            String parameters = "&ingredients=";
+            String parameters = "&q=";
             for (Item item : inventory.getInventory()) {
                 parameters += item.getName() + ",";
             }
             parameters = parameters.substring(0, parameters.length() - 1);
             return buildRecipe(apiUrl + parameters);
         } catch (Exception E) {
+            E.printStackTrace();
             return null;
         }
     }
@@ -57,7 +59,7 @@ public class RecipeManager {
     public static List<Recipe> getRecipeByString(String itemName) //throws IOException, JSONException
     {
         try {
-            String parameters = "&ingredients=" + itemName;
+            String parameters = "&q=" + itemName;
             parameters = parameters.substring(0, parameters.length() - 1);
             return buildRecipe(apiUrl + parameters);
         } catch (Exception E) {
@@ -68,6 +70,7 @@ public class RecipeManager {
     private static String readAll(BufferedReader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
+        System.out.println("Inside readAll");
         while ((cp = rd.read()) != -1) {
             sb.append((char) cp);
         }
@@ -76,17 +79,18 @@ public class RecipeManager {
 
     private static List<Recipe> buildRecipe(String request) throws IOException, JSONException
     {
-        ArrayList<Recipe> toReturn = new ArrayList<>();
-
-        InputStream input = new URL(request).openStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-*")));
+        List<Recipe> toReturn = new ArrayList<>();
+        BufferedInputStream input = new BufferedInputStream(new URL(request).openStream(), 8000);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-8")));
         JSONObject json = new JSONObject(readAll(reader));
 
-        JSONArray allRecipes = json.getJSONArray("");
+        JSONArray allRecipes = json.getJSONArray("recipes");
+        System.out.println("JSONArray allRecipes[0]: " + allRecipes.isNull(0));
         for(int x = 0; x < allRecipes.length(); x++)
         {
             JSONObject recipeHere = allRecipes.getJSONObject(x);
-            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("ingredients"),null,null));
+            //current API call doesn't return ingredients!
+            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("recipe_id"), null,null,null));
         }
 
         return toReturn;

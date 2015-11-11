@@ -6,17 +6,16 @@ import java.util.Map;
  * Container class for holding ingredient information
  */
 public class Item {
-    //
-    Integer code; //USDA food code
+    //Integer code; //USDA food code
     String name; //name of the item
     Float quantity; //quantity IE mL, gallons, teaspoons etc
-    private Map<String, Float> nutrAttr;
+    //private Map<String, Float> nutrAttr;
 
-    public Item(Integer code, String name, Float quantity, Map<String, Float> nutrAttr){
-        this.code = code;
+    public Item(String name, Float quantity){
+        //this.code = code;
         this.name = name;
         this.quantity = quantity;
-        this.nutrAttr = nutrAttr;
+        //this.nutrAttr = nutrAttr;
 
     }
 
@@ -24,17 +23,17 @@ public class Item {
 
     public float getQuantity() {return quantity;}
 
-    public int getCode() {return code;}
+    //public int getCode() {return code;}
 
-    public Map<String, Float> getNutrAttr(){return nutrAttr;}
+    //public Map<String, Float> getNutrAttr(){return nutrAttr;}
 
     public void setName(String name) {this.name = name;}
 
-    public void setCode(int code) {this.code = code;}
+    //public void setCode(int code) {this.code = code;}
 
     public void setQuantity(float quantity) {this.quantity = quantity;}
 
-    public void setNutrAttr(Map<String, Float> nutrAttr) {this.nutrAttr = nutrAttr;}
+    //public void setNutrAttr(Map<String, Float> nutrAttr) {this.nutrAttr = nutrAttr;}
 
     @Override
     public String toString() {

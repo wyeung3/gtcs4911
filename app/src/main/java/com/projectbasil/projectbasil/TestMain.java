@@ -11,9 +11,9 @@ public class TestMain {
 
 
     public static void main(String[] args) {
-        Item item1 = new Item(null, "Item1", null, null);
-        Item item2 = new Item(null, "Item2", null, null);
-        Item item3 = new Item(null, "Item3", null, null);
+        Item item1 = new Item("Item1", null);
+        Item item2 = new Item("Item2", null);
+        Item item3 = new Item("Item3", null);
 
         List<Item> list = new ArrayList<Item>();
         list.add(item1); list.add(item2); list.add(item3);

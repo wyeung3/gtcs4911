@@ -11,16 +11,17 @@ public class Recipe {
     private Map<String, Float> nutrAttr;
     private String name;
     private int rating; //-1 to 5 (-1 meaning no rating)
+    private String recipeId;
     private String instructions;
     private List<Item> ingredients;
 
-    public Recipe(String name, int rating, String instructions, Map<String, Float> nutrAttr, List<Item> ingredients){
+    public Recipe(String name, int rating, String recipeId, String instructions, Map<String, Float> nutrAttr, List<Item> ingredients){
         this.nutrAttr = nutrAttr;
         this.ingredients = ingredients;
         this.name = name;
         this.rating = rating;
         this.instructions = instructions;
-
+        this.recipeId = recipeId;
     }
 
     public String getName(){
@@ -35,6 +36,10 @@ public class Recipe {
     }
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getRecipeId() {
+        return recipeId;
     }
 
     public String getInstructions(){
