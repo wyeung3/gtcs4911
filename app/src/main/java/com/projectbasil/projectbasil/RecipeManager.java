@@ -22,6 +22,7 @@ import org.json.JSONArray;
 public class RecipeManager {
     private final static String apiKey = "20b007f3c89a4eb35710c9312abf9e36";
     private final static String apiUrl = "http://food2fork.com/api/search?key=" + apiKey;
+    private final static String apiRecipeUrl = "http://food2fork.com/api/get?key=";
 
     /**
      *
@@ -32,6 +33,18 @@ public class RecipeManager {
     {
         return null;
     }
+
+    public static Recipe getRecipeFromId(String id)
+    {
+        try {
+            return buildIdRecipe(apiRecipeUrl + apiKey + "&rId=" + id);
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+    }
+
 
     /**
      * @param inventory A list of items in the user's inventory / their kitchen stock.
@@ -85,13 +98,31 @@ public class RecipeManager {
         JSONObject json = new JSONObject(readAll(reader));
 
         JSONArray allRecipes = json.getJSONArray("recipes");
-        System.out.println("JSONArray allRecipes[0]: " + allRecipes.isNull(0));
         for(int x = 0; x < allRecipes.length(); x++)
         {
             JSONObject recipeHere = allRecipes.getJSONObject(x);
-            //current API call doesn't return ingredients!
-            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("recipe_id"), null,null,null));
+            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
+                    recipeHere.getString("recipe_id"), null,null,null));
         }
+
+        return toReturn;
+    }
+
+    private static Recipe buildIdRecipe(String request) throws IOException, JSONException
+    {
+        BufferedInputStream input = new BufferedInputStream(new URL(request).openStream(), 8000);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-8")));
+        JSONObject json = new JSONObject(readAll(reader));
+
+        JSONObject recipeHere = json.getJSONObject("recipe");
+        JSONArray t = recipeHere.getJSONArray("ingredients");
+        ArrayList<String> ingredients = new ArrayList<String>();
+        for(int x = 0; x < t.length(); x++)
+        {
+            ingredients.add(t.getString(x));
+        }
+        Recipe toReturn = new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
+                recipeHere.getString("recipe_id"), new ArrayList<String>(), null,ingredients);
 
         return toReturn;
     }

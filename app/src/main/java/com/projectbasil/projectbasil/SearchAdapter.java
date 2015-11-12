@@ -38,7 +38,7 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int index) {
-        return Long.parseLong(recipeList.get(index).getRecipeId());
+        return Long.valueOf(recipeList.get(index).getRecipeId());
     }
 
     @Override

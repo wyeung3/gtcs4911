@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
             //permission was previously granted; or legacy device
             listViewRecipes = (ListView)findViewById(R.id.listViewRecipes);
             recipeList = new ArrayList<>();
-            SearchTask task = new SearchTask();
+            ListSearchTask task = new ListSearchTask();
             task.execute();
         }
     }
@@ -52,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-    private class SearchTask extends AsyncTask<Void, Void, Void> {
+    private class ListSearchTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             GlobalVars instance = GlobalVars.getInstance();
@@ -64,7 +64,6 @@ public class SearchActivity extends AppCompatActivity {
             System.out.println("recipeList size: " +  recipeList.size());
             return null;
         }
-
         @Override
         protected void onPostExecute(Void results) {
             ArrayAdapter<Recipe> arrayAdapter = new ArrayAdapter<>(SearchActivity.this, android.R.layout.simple_list_item_1, recipeList);
@@ -75,15 +74,54 @@ public class SearchActivity extends AppCompatActivity {
             listViewRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 // argument position gives the index of item which is clicked
                 public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-                    String selectedRecipe = recipeList.get(position).getName();
-                    Toast.makeText(SearchActivity.this, "Recipe Selected : " + selectedRecipe, Toast.LENGTH_LONG).show();
+                    if (recipeList.get(position).getIngredients() == null) {
+                        RecipeSearchTask task = new RecipeSearchTask();
+                        task.execute(position);
+                    } else {
+                        GlobalVars instance = GlobalVars.getInstance();
+                        instance.setMostRecentRecipe(recipeList.get(position));
+                        Intent intent = new Intent(getApplicationContext(), RecipeDetailsActivity.class);
+                        startActivity(intent);
+                    }
                 }
             });
         }
-
         @Override
         protected void onCancelled(Void results) {
             listViewRecipes.getEmptyView();
+        }
+    }
+
+    private class RecipeSearchTask extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            String id = recipeList.get(params[0]).getRecipeId();
+            Recipe selectedRecipe = RecipeManager.getRecipeFromId(id);
+            if(selectedRecipe == null) {
+                cancel(true);
+                return -1;
+            }
+            recipeList.set(params[0], selectedRecipe);
+            return params[0];
+        }
+        @Override
+        protected void onPostExecute(Integer results) {
+            if(results == -1) {
+                Toast.makeText(getApplicationContext(), "We're sorry, but we have no details for this recipe!!",
+                        Toast.LENGTH_LONG).show();
+            }
+            else {
+                GlobalVars instance = GlobalVars.getInstance();
+                instance.setMostRecentRecipe(recipeList.get(results));
+                Intent intent = new Intent(getApplicationContext(), RecipeDetailsActivity.class);
+                startActivity(intent);
+            }
+
+        }
+        @Override
+        protected void onCancelled(Integer results) {
+            Toast.makeText(getApplicationContext(), "We're sorry, but we have no details for "
+                    + recipeList.get(results).getName(), Toast.LENGTH_LONG).show();
         }
     }
 
