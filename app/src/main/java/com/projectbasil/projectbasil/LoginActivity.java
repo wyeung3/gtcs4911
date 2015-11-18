@@ -316,7 +316,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             if (success) {
                 GlobalVars instance = GlobalVars.getInstance();
                 instance.setInventory(new Inventory());
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SchedulerActivity.class);
                 startActivity(intent);
                 finish();
             } else {

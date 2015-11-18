@@ -1,0 +1,92 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.projectbasil.projectbasil.SchedulerActivity$PlaceholderFragment">
+
+    <TextView
+        android:id="@+id/breakfast_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Breakfast"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_horizontal"/>
+
+    <ListView
+        android:id="@+id/listViewBreakfast"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0.1dp"
+        android:divider="#0000CC"
+        android:layout_below="@+id/breakfast_label"
+        >
+    </ListView>
+
+    <TextView
+        android:id="@+id/emptyViewBreakfast"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="No recipes found!"
+        android:layout_below="@+id/breakfast_label" />
+
+    <TextView
+        android:id="@+id/lunch_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Lunch"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/listViewBreakfast" />
+
+    <ListView
+        android:id="@+id/listViewLunch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0.1dp"
+        android:divider="#0000CC"
+        android:layout_below="@+id/lunch_label"
+        >
+    </ListView>
+
+    <TextView
+        android:id="@+id/emptyViewLunch"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="No recipes found!"
+        android:layout_below="@+id/lunch_label" />
+
+    <TextView
+        android:id="@+id/dinner_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Dinner"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/listViewLunch"/>
+
+    <ListView
+        android:id="@+id/listViewDinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="0.1dp"
+        android:divider="#0000CC"
+        android:layout_below="@+id/dinner_label"
+        >
+    </ListView>
+
+    <TextView
+        android:id="@+id/emptyViewDinner"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="No recipes found!"
+        android:layout_below="@+id/dinner_label" />
+
+</RelativeLayout>
