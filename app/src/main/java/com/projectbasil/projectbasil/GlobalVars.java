@@ -9,6 +9,7 @@ public class GlobalVars {
 
     // Global variable
     private Inventory inventory;
+    private Recipe mostRecentRecipe;
 
     // Restrict the constructor from being instantiated
     private GlobalVars(){}
@@ -19,6 +20,14 @@ public class GlobalVars {
 
     public Inventory getInventory(){
         return inventory;
+    }
+
+    public void setMostRecentRecipe(Recipe recipe) {
+        mostRecentRecipe = recipe;
+    }
+
+    public Recipe getMostRecentRecipe() {
+        return mostRecentRecipe;
     }
 
     public static synchronized GlobalVars getInstance(){

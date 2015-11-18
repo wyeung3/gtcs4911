@@ -1,5 +1,6 @@
 package com.projectbasil.projectbasil;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,10 +33,11 @@ public class RecipeManager {
     {
         return null;
     }
-    public static Recipe getRecipeFromId(int id)
+
+    public static Recipe getRecipeFromId(String id)
     {
         try {
-            return buildRecipe(apiRecipeUrl + apiKey + "&id=" + id).get(0);
+            return buildIdRecipe(apiRecipeUrl + apiKey + "&rId=" + id);
         }
         catch(Exception e)
         {
@@ -51,13 +53,14 @@ public class RecipeManager {
     public static List<Recipe> getRecipe(Inventory inventory) //throws IOException, JSONException
     {
         try {
-            String parameters = "&ingredients=";
+            String parameters = "&q=";
             for (Item item : inventory.getInventory()) {
                 parameters += item.getName() + ",";
             }
             parameters = parameters.substring(0, parameters.length() - 1);
             return buildRecipe(apiUrl + parameters);
         } catch (Exception E) {
+            E.printStackTrace();
             return null;
         }
     }
@@ -80,6 +83,7 @@ public class RecipeManager {
     private static String readAll(BufferedReader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
+        System.out.println("Inside readAll");
         while ((cp = rd.read()) != -1) {
             sb.append((char) cp);
         }
@@ -88,17 +92,17 @@ public class RecipeManager {
 
     private static List<Recipe> buildRecipe(String request) throws IOException, JSONException
     {
-        ArrayList<Recipe> toReturn = new ArrayList<>();
-
-        InputStream input = new URL(request).openStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-*")));
+        List<Recipe> toReturn = new ArrayList<>();
+        BufferedInputStream input = new BufferedInputStream(new URL(request).openStream(), 8000);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-8")));
         JSONObject json = new JSONObject(readAll(reader));
 
-        JSONArray allRecipes = json.getJSONArray("");
+        JSONArray allRecipes = json.getJSONArray("recipes");
         for(int x = 0; x < allRecipes.length(); x++)
         {
             JSONObject recipeHere = allRecipes.getJSONObject(x);
-            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"), recipeHere.getString("ingredients"),null,null));
+            toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
+                    recipeHere.getString("recipe_id"), null,null,null));
         }
 
         return toReturn;
@@ -106,13 +110,11 @@ public class RecipeManager {
 
     private static Recipe buildIdRecipe(String request) throws IOException, JSONException
     {
-        InputStream input = new URL(request).openStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-*")));
+        BufferedInputStream input = new BufferedInputStream(new URL(request).openStream(), 8000);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input, Charset.forName("UTF-8")));
         JSONObject json = new JSONObject(readAll(reader));
 
-        JSONArray result = json.getJSONArray("");
-
-        JSONObject recipeHere = result.getJSONObject(0);
+        JSONObject recipeHere = json.getJSONObject("recipe");
         JSONArray t = recipeHere.getJSONArray("ingredients");
         ArrayList<String> ingredients = new ArrayList<String>();
         for(int x = 0; x < t.length(); x++)
@@ -120,7 +122,7 @@ public class RecipeManager {
             ingredients.add(t.getString(x));
         }
         Recipe toReturn = new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
-                "", null,ingredients);
+                recipeHere.getString("recipe_id"), new ArrayList<String>(), null,ingredients);
 
         return toReturn;
     }

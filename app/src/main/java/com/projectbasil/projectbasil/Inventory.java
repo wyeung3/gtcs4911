@@ -13,7 +13,7 @@ public class Inventory {
 
     public Inventory() {
         inventory = new ArrayList<>();
-        inventory.add(new Item(1, "Ground Beef", 2.0f, new HashMap<String, Float>()));
+        inventory.add(new Item("Beef", 2.0f));
     }
     
     public Inventory(List<Item> inv){
@@ -27,13 +27,13 @@ public class Inventory {
         return this.inventory;
     }
     public Item getItemByName(String name){
-        Item temp = new Item(null,null,null,null);
+        Item temp = new Item(null,null);
         //TODO: parse inventory for item with same name
         return temp;
     }
     public Item getItemByCode(int code){
         //TODO: parse inv for item with same code
-        Item temp = new Item(null,null,null,null);
+        Item temp = new Item(null,null);
         return temp;
     }
     public Item getItemByIndex(int index) {
