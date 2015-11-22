@@ -65,11 +65,7 @@ public class Recipe {
 
     public int saveRecipe(String toMeal, Context context)
     {
-        String toWrite = name + "\n" + rating + "\n" + recipeId + "\n";
-        for(String instruction : instructions) toWrite += instruction + "\n";
-        toWrite += "ingredients\n";
-        for(String ingredient : ingredients) toWrite += ingredient + "\n";
-        toWrite += "endRecipe\n";
+        String toWrite = buildRecipeString();
         FileOutputStream fos = null;
         try{
             fos = context.openFileOutput(toMeal, Context.MODE_APPEND);
@@ -81,6 +77,44 @@ public class Recipe {
         }
 
         return 0;
+    }
+
+    private String buildRecipeString()
+    {
+        String toWrite = name + "\n" + rating + "\n" + recipeId + "\n";
+        for(String instruction : instructions) toWrite += instruction + "\n";
+        toWrite += "ingredients\n";
+        for(String ingredient : ingredients) toWrite += ingredient + "\n";
+        toWrite += "endRecipe\n";
+        return toWrite;
+    }
+
+    public int deleteRecipe(String id, String fromMeal, Context context)
+    {
+        List<Recipe> recipes = loadMeal(fromMeal, context);
+        String toWrite = "";
+        boolean deleted = false;
+        for(Recipe recipe : recipes)
+        {
+            if(!recipe.getRecipeId().equals(id) || deleted)
+            {
+                toWrite += recipe.buildRecipeString();
+                deleted = true;
+            }
+        }
+
+        FileOutputStream fos = null;
+        try{
+            fos = context.openFileOutput(fromMeal, Context.MODE_PRIVATE);
+            fos.write(toWrite.getBytes());
+        }
+        catch(Exception e)
+        {
+            return -1;
+        }
+
+        return 0;
+
     }
 
     public static List<Recipe> loadMeal(String fromMeal, Context context)
