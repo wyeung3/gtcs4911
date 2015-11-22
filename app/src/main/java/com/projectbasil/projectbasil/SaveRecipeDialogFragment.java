@@ -2,6 +2,7 @@ package com.projectbasil.projectbasil;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -46,6 +47,8 @@ public class SaveRecipeDialogFragment extends DialogFragment {
                 int result = recipe.saveRecipe(meal, getContext());
                 if (result == 0) {
                     Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT);
+                    //Intent intent = new Intent(getActivity(), SchedulerActivity.class);
+                    //startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "Recipe not saved...", Toast.LENGTH_SHORT);
                 }
