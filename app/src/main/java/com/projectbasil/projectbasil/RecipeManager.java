@@ -1,5 +1,7 @@
 package com.projectbasil.projectbasil;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -125,5 +127,15 @@ public class RecipeManager {
                 recipeHere.getString("recipe_id"), new ArrayList<String>(), null,ingredients);
 
         return toReturn;
+    }
+
+    public static Drawable LoadImageFromURL(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "pic src"); //pic source doesnt matter
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
