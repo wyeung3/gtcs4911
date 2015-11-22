@@ -6,4 +6,19 @@
     <string name="title_activity_inventory">InventoryActivity</string>
     <string name="title_activity_recipe_details">RecipeDetailsActivity</string>
     <string name="title_activity_scheduler">SchedulerActivity</string>
+
+    <string-array name="weekdays">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="meals">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
 </resources>

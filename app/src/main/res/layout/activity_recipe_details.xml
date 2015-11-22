@@ -19,4 +19,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/recipeRating" />
+
+    <Button
+        android:id="@+id/saveRecipeBtn"
+        android:text="Save Recipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:enabled="false">
+    </Button>
 </RelativeLayout>

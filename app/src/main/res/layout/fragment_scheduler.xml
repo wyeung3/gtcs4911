@@ -1,6 +1,7 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -23,7 +24,6 @@
         android:layout_height="wrap_content"
         android:dividerHeight="0.1dp"
         android:divider="#0000CC"
-        android:layout_below="@+id/breakfast_label"
         >
     </ListView>
 
@@ -32,8 +32,7 @@
         android:gravity="center_horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="No recipes found!"
-        android:layout_below="@+id/breakfast_label" />
+        android:text="No recipes found!" />
 
     <TextView
         android:id="@+id/lunch_label"
@@ -41,8 +40,7 @@
         android:layout_height="wrap_content"
         android:text="Lunch"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/listViewBreakfast" />
+        android:gravity="center_horizontal" />
 
     <ListView
         android:id="@+id/listViewLunch"
@@ -50,7 +48,6 @@
         android:layout_height="wrap_content"
         android:dividerHeight="0.1dp"
         android:divider="#0000CC"
-        android:layout_below="@+id/lunch_label"
         >
     </ListView>
 
@@ -59,8 +56,7 @@
         android:gravity="center_horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="No recipes found!"
-        android:layout_below="@+id/lunch_label" />
+        android:text="No recipes found!" />
 
     <TextView
         android:id="@+id/dinner_label"
@@ -68,8 +64,7 @@
         android:layout_height="wrap_content"
         android:text="Dinner"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/listViewLunch"/>
+        android:gravity="center_horizontal"/>
 
     <ListView
         android:id="@+id/listViewDinner"
@@ -77,7 +72,6 @@
         android:layout_height="wrap_content"
         android:dividerHeight="0.1dp"
         android:divider="#0000CC"
-        android:layout_below="@+id/dinner_label"
         >
     </ListView>
 
@@ -86,7 +80,6 @@
         android:gravity="center_horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="No recipes found!"
-        android:layout_below="@+id/dinner_label" />
+        android:text="No recipes found!" />
 
-</RelativeLayout>
+</LinearLayout>

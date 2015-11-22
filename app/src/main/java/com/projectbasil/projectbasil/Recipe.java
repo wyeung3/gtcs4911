@@ -117,7 +117,7 @@ public class Recipe {
         }
         catch(Exception e)
         {
-            return null;
+            return new ArrayList<Recipe>();
         }
 
         return toReturn;

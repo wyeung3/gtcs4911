@@ -195,26 +195,35 @@ public class SchedulerActivity extends AppCompatActivity implements ActionBar.Ta
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_scheduler, container, false);
 
-            List<Recipe> breakfastList = new ArrayList<>();
+            String savedBreakfast = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER),0);
+            List<Recipe> breakfastList = Recipe.loadMeal(savedBreakfast, getContext());
             ArrayAdapter<Recipe> breakfastAdapter = new ArrayAdapter<>(getActivity(), R.layout.search_item, breakfastList);
-
             ListView listViewBreakfast = (ListView) rootView.findViewById(R.id.listViewBreakfast);
             listViewBreakfast.setAdapter(breakfastAdapter);
             listViewBreakfast.setEmptyView(rootView.findViewById(R.id.emptyViewBreakfast));
 
-            List<Recipe> lunchList = new ArrayList<>();
+            String savedLunch = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER),1);
+            List<Recipe> lunchList = Recipe.loadMeal(savedLunch, getContext());
             ArrayAdapter<Recipe> lunchAdapter = new ArrayAdapter<>(getActivity(), R.layout.search_item, lunchList);
             ListView listViewLunch = (ListView) rootView.findViewById(R.id.listViewLunch);
             listViewLunch.setAdapter(lunchAdapter);
             listViewLunch.setEmptyView(rootView.findViewById(R.id.emptyViewLunch));
 
-            List<Recipe> dinnerList = new ArrayList<>();
+            String savedDinner = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER),2);
+            List<Recipe> dinnerList = Recipe.loadMeal(savedDinner, getContext());
             ArrayAdapter<Recipe> dinnerAdapter = new ArrayAdapter<>(getActivity(), R.layout.search_item, dinnerList);
             ListView listViewDinner = (ListView) rootView.findViewById(R.id.listViewDinner);
             listViewDinner.setAdapter(dinnerAdapter);
             listViewDinner.setEmptyView(rootView.findViewById(R.id.emptyViewDinner));
 
             return rootView;
+        }
+
+        private String buildFileName(int weekday, int meal) {
+            String[] weekdays = getResources().getStringArray(R.array.weekdays);
+            String[] meals = getResources().getStringArray(R.array.meals);
+            String combine = weekdays[weekday-1] + "_" + meals[meal];
+            return combine;
         }
     }
 
