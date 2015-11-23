@@ -1,6 +1,10 @@
 package com.projectbasil.projectbasil;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -104,7 +108,7 @@ public class RecipeManager {
         {
             JSONObject recipeHere = allRecipes.getJSONObject(x);
             toReturn.add(new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
-                    recipeHere.getString("recipe_id"), null,null,null));
+                    recipeHere.getString("recipe_id"), null,null,null, recipeHere.getString("image_url")));
         }
 
         return toReturn;
@@ -124,18 +128,9 @@ public class RecipeManager {
             ingredients.add(t.getString(x));
         }
         Recipe toReturn = new Recipe(recipeHere.getString("title"), recipeHere.getInt("social_rank"),
-                recipeHere.getString("recipe_id"), new ArrayList<String>(), null,ingredients);
+                recipeHere.getString("recipe_id"), new ArrayList<String>(), null,ingredients, recipeHere.getString("image_url"));
 
         return toReturn;
     }
 
-    public static Drawable LoadImageFromURL(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "pic src"); //pic source doesnt matter
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }

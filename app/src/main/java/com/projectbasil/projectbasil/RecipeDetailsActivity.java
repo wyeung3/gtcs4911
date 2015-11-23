@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -53,6 +54,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 list = list.concat(bulletSymbol + recipe.getIngredients().get(i) + "\n");
             }
             ingredients.setText(list);
+            ImageView img = (ImageView) findViewById(R.id.recipeImg);
+            recipe.LoadImageFromURL(img);
             btnRef.setEnabled(true);
             //maybe use isClickable?
         }

@@ -1,10 +1,15 @@
 package com.projectbasil.projectbasil;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +25,16 @@ public class Recipe {
     private String recipeId;
     private List<String> instructions;
     private List<String> ingredients;
+    private String imgURL;
 
-    public Recipe(String name, int rating, String recipeId, List<String> instructions, Map<String, Float> nutrAttr, List<String> ingredients){
+    public Recipe(String name, int rating, String recipeId, List<String> instructions, Map<String, Float> nutrAttr, List<String> ingredients, String imgURL){
         this.nutrAttr = nutrAttr;
         this.ingredients = ingredients;
         this.name = name;
         this.rating = rating;
         this.instructions = instructions;
         this.recipeId = recipeId;
+        this.imgURL = imgURL;
     }
 
     public String getName(){
@@ -58,6 +65,13 @@ public class Recipe {
         return ingredients;
     }
 
+    public String getImgURL() {
+        return imgURL;
+    }
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
+    }
+
     @Override
     public String toString() {
         return name;
@@ -81,7 +95,7 @@ public class Recipe {
 
     private String buildRecipeString()
     {
-        String toWrite = name + "\n" + rating + "\n" + recipeId + "\n";
+        String toWrite = name + "\n" + rating + "\n" + recipeId + "\n" + imgURL + "\n";
         for(String instruction : instructions) toWrite += instruction + "\n";
         toWrite += "ingredients\n";
         for(String ingredient : ingredients) toWrite += ingredient + "\n";
@@ -114,7 +128,6 @@ public class Recipe {
         }
 
         return 0;
-
     }
 
     public static List<Recipe> loadMeal(String fromMeal, Context context)
@@ -134,6 +147,7 @@ public class Recipe {
                 String name = line; //Name of the String
                 int rating = Integer.parseInt(b.readLine()); //Rating of the Recipe
                 String recipeId = b.readLine(); //Id of the Recipe
+                String imgURL = b.readLine();
 
                 List<String> is = new ArrayList<String>();
                 String instruction = "";
@@ -143,7 +157,7 @@ public class Recipe {
                 String ingredient = "";
                 while(!(ingredient = b.readLine()).equals("endRecipe")) { ing.add(ingredient); }
 
-                Recipe toAdd = new Recipe(name, rating, recipeId, is, null, ing);
+                Recipe toAdd = new Recipe(name, rating, recipeId, is, null, ing, imgURL);
                 toReturn.add(toAdd);
             }
 
@@ -156,6 +170,32 @@ public class Recipe {
 
         return toReturn;
 
+    }
+
+    public void LoadImageFromURL(ImageView imgView) {
+        LoadImgTask task = new LoadImgTask(imgView);
+        task.execute(getImgURL());
+    }
+
+    private class LoadImgTask extends AsyncTask<String, Void, Drawable> {
+        private ImageView img;
+        public LoadImgTask(ImageView img) {
+            this.img = img;
+        }
+        @Override
+        protected Drawable doInBackground(String... params) {
+            try {
+                InputStream is = (InputStream) new URL(params[0]).getContent();
+                Drawable d = Drawable.createFromStream(is, "pic src"); //pic source doesnt matter
+                return d;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        @Override
+        protected void onPostExecute(Drawable results) {
+            img.setImageDrawable(results);
+        }
     }
 
     //TODO: Format instructions here?

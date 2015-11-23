@@ -193,9 +193,9 @@ public class SchedulerActivity extends AppCompatActivity implements ActionBar.Ta
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_scheduler, container, false);
 
-            String savedBreakfast = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER),0);
+            String savedBreakfast = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER), 0);
             List<Recipe> breakfastList = Recipe.loadMeal(savedBreakfast, getContext());
-            ArrayAdapter<Recipe> breakfastAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, breakfastList);
+            ScheduleAdapter breakfastAdapter = new ScheduleAdapter(getActivity(), breakfastList, savedBreakfast);
             ListView listViewBreakfast = (ListView) rootView.findViewById(R.id.listViewBreakfast);
             listViewBreakfast.setAdapter(breakfastAdapter);
             listViewBreakfast.setEmptyView(rootView.findViewById(R.id.emptyViewBreakfast));
@@ -208,19 +208,35 @@ public class SchedulerActivity extends AppCompatActivity implements ActionBar.Ta
                 }
             });
 
-            String savedLunch = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER),1);
+            String savedLunch = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER), 1);
             List<Recipe> lunchList = Recipe.loadMeal(savedLunch, getContext());
-            ArrayAdapter<Recipe> lunchAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, lunchList);
+            ScheduleAdapter lunchAdapter = new ScheduleAdapter(getActivity(), lunchList, savedLunch);
             ListView listViewLunch = (ListView) rootView.findViewById(R.id.listViewLunch);
             listViewLunch.setAdapter(lunchAdapter);
             listViewLunch.setEmptyView(rootView.findViewById(R.id.emptyViewLunch));
+            listViewLunch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                    GlobalVars instance = GlobalVars.getInstance();
+                    instance.setMostRecentRecipe((Recipe) arg0.getAdapter().getItem(position));
+                    Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             String savedDinner = buildFileName(getArguments().getInt(ARG_SECTION_NUMBER),2);
             List<Recipe> dinnerList = Recipe.loadMeal(savedDinner, getContext());
-            ArrayAdapter<Recipe> dinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, dinnerList);
+            ScheduleAdapter dinnerAdapter = new ScheduleAdapter(getActivity(), dinnerList, savedDinner);
             ListView listViewDinner = (ListView) rootView.findViewById(R.id.listViewDinner);
             listViewDinner.setAdapter(dinnerAdapter);
             listViewDinner.setEmptyView(rootView.findViewById(R.id.emptyViewDinner));
+            listViewDinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
+                    GlobalVars instance = GlobalVars.getInstance();
+                    instance.setMostRecentRecipe((Recipe) arg0.getAdapter().getItem(position));
+                    Intent intent = new Intent(getActivity(), RecipeDetailsActivity.class);
+                    startActivity(intent);
+                }
+            });
 
             return rootView;
         }
