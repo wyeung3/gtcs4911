@@ -4,11 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by tehub on 9/21/2015.
+ * Created by John Brand on 9/21/2015.
  * Container class for a list of recipes
  */
 public class RecipeBook {
 
+    /**
+     * list of favorite recipes of the user
+     */
     private List<Recipe> favorites; //permanent book of recipes
 
     /**
@@ -20,21 +23,38 @@ public class RecipeBook {
         this.favorites = savedFavorites;
     }
 
+    /**
+     * add a Recipe to list of recipes (favorites)
+     * @param recipe
+     */
     public void addFavoriteRecipe(Recipe recipe) {
         favorites.add(recipe);
         //TODO: save change to locally stored favorites recipebook
     }
 
+    /**
+     * removes a recipe from favorites list
+     * @param recipe
+     */
     public void removeFavoriteRecipe(Recipe recipe){
         favorites.remove(recipe);
         //TODO: save change to locally stored favorites recipebook
     }
 
+    /**
+     * delete all entries in favorites
+     */
     public void clearFavorites(){
         favorites.clear(); //possible resizing issues
         //TODO: save change to locally stored favorites recipebook
     }
 
+    /**
+     * Return a list of recipes based off current inventory for user
+     * to pick a recipe from from.
+     * @param inventory
+     * @return
+     */
     public static List<Recipe> getRecipe(Inventory inventory){
         return RecipeManager.getRecipe(inventory);
     }
