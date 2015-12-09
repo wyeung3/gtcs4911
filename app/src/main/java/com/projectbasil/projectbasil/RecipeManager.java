@@ -31,7 +31,7 @@ public class RecipeManager {
     private final static String apiRecipeUrl = "http://food2fork.com/api/get?key=";
 
     /**
-     *
+     * For getting a recipe w/ nutritional information attached
      * @param nutrition:
      * @return a list of recipes
      */
@@ -40,6 +40,11 @@ public class RecipeManager {
         return null;
     }
 
+    /**
+     * Helper function for querying recipe details
+     * @param id recipe id
+     * @return complete recipe with all detailed info
+     */
     public static Recipe getRecipeFromId(String id)
     {
         try {
@@ -53,6 +58,7 @@ public class RecipeManager {
 
 
     /**
+     * Searches for recpipes based on current user's inventory on file
      * @param inventory A list of items in the user's inventory / their kitchen stock.
      * @return a list of recipes based on inventory stock
      */
@@ -72,6 +78,7 @@ public class RecipeManager {
     }
 
     /**
+     * Search recipes by specific string
      * @param itemName a specific string to search by
      * @return list of recipes found by searching given string
      */
@@ -86,6 +93,12 @@ public class RecipeManager {
         }
     }
 
+    /**
+     * Read string from bufferedreader of a JSON object
+     * @param rd
+     * @return
+     * @throws IOException
+     */
     private static String readAll(BufferedReader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
@@ -96,6 +109,13 @@ public class RecipeManager {
         return sb.toString();
     }
 
+    /**
+     * Query database and return a list of recipes found
+     * @param request query string
+     * @return list of recipes returned
+     * @throws IOException
+     * @throws JSONException
+     */
     private static List<Recipe> buildRecipe(String request) throws IOException, JSONException
     {
         List<Recipe> toReturn = new ArrayList<>();
@@ -114,6 +134,13 @@ public class RecipeManager {
         return toReturn;
     }
 
+    /**
+     * Query for details of a recipe using recipe ID
+     * @param request
+     * @return specific recipe searching by recipe ID
+     * @throws IOException
+     * @throws JSONException
+     */
     private static Recipe buildIdRecipe(String request) throws IOException, JSONException
     {
         BufferedInputStream input = new BufferedInputStream(new URL(request).openStream(), 8000);

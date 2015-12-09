@@ -168,7 +168,10 @@ public class Recipe {
 
         return 0;
     }
-
+    /**
+     * Helper for building string being written to file
+     * @return string of recipe
+     */
     private String buildRecipeString()
     {
         String toWrite = name + "\n" + rating + "\n" + recipeId + "\n" + imgURL + "\n";
@@ -179,6 +182,13 @@ public class Recipe {
         return toWrite;
     }
 
+    /**
+     * Delete selected recipe from schedule
+     * @param id recipe id
+     * @param fromMeal meal & day to delete from
+     * @param context
+     * @return indicator of success/failure
+     */
     public int deleteRecipe(String id, String fromMeal, Context context)
     {
         List<Recipe> recipes = loadMeal(fromMeal, context);
@@ -206,6 +216,12 @@ public class Recipe {
         return 0;
     }
 
+    /**
+     * Load meal plan from saved file
+     * @param fromMeal
+     * @param context
+     * @return list of recipes loaded from file
+     */
     public static List<Recipe> loadMeal(String fromMeal, Context context)
     {
         FileInputStream fos = null;
@@ -248,11 +264,18 @@ public class Recipe {
 
     }
 
+    /**
+     * Instantiate and executes AsyncTask for loading img from recipe's url
+     * @param imgView layout view to display image
+     */
     public void LoadImageFromURL(ImageView imgView) {
         LoadImgTask task = new LoadImgTask(imgView);
         task.execute(getImgURL());
     }
 
+    /**
+     * Private class, AsyncTask for loading an image
+     */
     private class LoadImgTask extends AsyncTask<String, Void, Drawable> {
         private ImageView img;
         public LoadImgTask(ImageView img) {

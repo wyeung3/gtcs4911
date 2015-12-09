@@ -21,6 +21,11 @@ public class SearchAdapter extends BaseAdapter implements ListAdapter {
     private List<Recipe> recipeList;
     private Context context;
 
+    /**
+     * Constructor
+     * @param recipeList
+     * @param context
+     */
     public SearchAdapter(List<Recipe> recipeList, Context context) {
         this.recipeList = recipeList;
         this.context = context;

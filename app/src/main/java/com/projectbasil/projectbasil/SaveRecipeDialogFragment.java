@@ -47,8 +47,8 @@ public class SaveRecipeDialogFragment extends DialogFragment {
                 int result = recipe.saveRecipe(meal, getContext());
                 if (result == 0) {
                     Toast.makeText(getContext(), "Recipe saved!", Toast.LENGTH_SHORT);
-                    //Intent intent = new Intent(getActivity(), SchedulerActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(getActivity(), SchedulerActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "Recipe not saved...", Toast.LENGTH_SHORT);
                 }

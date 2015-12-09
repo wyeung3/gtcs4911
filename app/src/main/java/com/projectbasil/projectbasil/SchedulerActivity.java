@@ -78,7 +78,6 @@ public class SchedulerActivity extends AppCompatActivity implements ActionBar.Ta
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

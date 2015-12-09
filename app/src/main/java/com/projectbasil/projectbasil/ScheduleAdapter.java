@@ -20,11 +20,22 @@ public class ScheduleAdapter extends BaseAdapter implements ListAdapter{
     private Context context;
     private String day_meal;
 
+    /**
+     * Constructor
+     * @param context
+     * @param recipeList
+     */
     public ScheduleAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
         this.recipeList = recipeList;
     }
 
+    /**
+     * Constructor for reading in specific day
+     * @param context
+     * @param recipeList
+     * @param day_meal
+     */
     public ScheduleAdapter(Context context, List<Recipe> recipeList, String day_meal) {
         this.context = context;
         this.recipeList = recipeList;

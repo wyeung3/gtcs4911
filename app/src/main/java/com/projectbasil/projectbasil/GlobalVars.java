@@ -30,6 +30,7 @@ public class GlobalVars {
         return mostRecentRecipe;
     }
 
+    //returns an instance of the singleton, only way to instantiate GlobalVars
     public static synchronized GlobalVars getInstance(){
         if(instance==null){
             instance=new GlobalVars();
