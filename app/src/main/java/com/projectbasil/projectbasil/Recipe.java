@@ -14,19 +14,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 /**
- * Created by tehub on 9/21/2015.
+ * Created by John Brand on 9/21/2015.
  * Container class for holding a recipe
  */
 public class Recipe {
 
+    /**
+     * Nutritional Attributes of recipe
+     */
     private Map<String, Float> nutrAttr;
+    /**
+     * name of recipe
+     */
     private String name;
+    /**
+     * rating of recipe
+     */
     private int rating; //-1 to 5 (-1 meaning no rating)
+    /**
+     * id return from API for recipe
+     */
     private String recipeId;
+    /**
+     * instructions of recipe from API
+     */
     private List<String> instructions;
+    /**
+     * ingredients of recipe
+     */
     private List<String> ingredients;
+    /**
+     * url for image of recipe
+     */
     private String imgURL;
 
+    /**
+     * constructor
+     * @param name
+     * @param rating
+     * @param recipeId
+     * @param instructions
+     * @param nutrAttr
+     * @param ingredients
+     * @param imgURL
+     */
     public Recipe(String name, int rating, String recipeId, List<String> instructions, Map<String, Float> nutrAttr, List<String> ingredients, String imgURL){
         this.nutrAttr = nutrAttr;
         this.ingredients = ingredients;
@@ -37,37 +68,82 @@ public class Recipe {
         this.imgURL = imgURL;
     }
 
+    /**
+     * returns name of recipe
+     * @return
+     */
     public String getName(){
         return name;
     }
+
+    /**
+     * set name of recipe
+     * @param name
+     */
     public void setName(String name){
         this.name = name;
     }
 
+    /**
+     * return rating
+     * @return
+     */
     public int getRating() {
         return rating;
     }
+
+    /**
+     * set rating of recipe
+     * @param rating
+     */
     public void setRating(int rating) {
         this.rating = rating;
     }
 
+    /**
+     * return recipeID of recipe
+     * @return
+     */
     public String getRecipeId() {
         return recipeId;
     }
 
+    /**
+     * return instructions
+     * @return
+     */
     public List<String> getInstructions(){
         return instructions;
     }
+
+    /**
+     * return nutrAttr
+     * @return
+     */
     public Map<String, Float> getNutrAttr(){
         return nutrAttr;
     }
+
+    /**
+     * returns ingredients
+     * @return
+     */
     public List<String> getIngredients(){
         return ingredients;
     }
 
+    /**
+     * return URL to image
+     * @return
+     */
     public String getImgURL() {
         return imgURL;
     }
+
+    /**
+     * set url to image
+     * @param imgURL
+     */
     public void setImgURL(String imgURL) {
         this.imgURL = imgURL;
     }
@@ -198,6 +274,4 @@ public class Recipe {
         }
     }
 
-    //TODO: Format instructions here?
-    //TODO: For creating your own recipes: Need to parse a List<Item> to calculate nutrAttr.
 }
