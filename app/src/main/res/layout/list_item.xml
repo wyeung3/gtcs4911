@@ -50,6 +50,18 @@
         android:text="@string/text_placeholder" />
 
 
+    <!--delete icon-->
+    <ImageButton
+        android:id="@+id/delete_stuff"
+        android:layout_width="20dip"
+        android:layout_height="20dip"
+        android:src="@android:drawable/ic_delete"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        />
     <!-- User-rating -->
     <RatingBar
         android:id="@+id/rating"
@@ -61,7 +73,7 @@
         android:isIndicator="true"
         android:stepSize="1"
         android:rating="0.2"
-        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/delete_stuff"
         android:layout_centerVertical="true"
         />
 

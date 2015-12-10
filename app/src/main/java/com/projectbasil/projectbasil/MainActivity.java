@@ -160,6 +160,7 @@ public class MainActivity extends MyActivity {
                         recipe.add(recipeObject.getName());
                         recipe.add("<Nutrition data here>");//nutrition
                         recipe.add(recipeObject.getRating());
+                        recipe.add(buildFileName(i,j));
                         day.add(recipe);
                     }
                 }

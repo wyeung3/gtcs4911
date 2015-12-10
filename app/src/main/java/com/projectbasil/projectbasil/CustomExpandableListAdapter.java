@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckedTextView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -162,10 +164,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.list_item, null);
         }
+        Recipe recipe = ((Recipe) recipesByDay.get(groupPosition).get(childPosition).get(0));
         // list_image, recipe_name, nutrition, rating
         if(recipesByDay.get(groupPosition).get(childPosition).get(0) != null){
-            ((Recipe) recipesByDay.get(groupPosition).get(childPosition).get(0)).LoadImageFromURL((ImageView) convertView.findViewById(R.id.list_image));
-            convertView.setOnClickListener(new RecipeOnClickListener((Recipe) recipesByDay.get(groupPosition).get(childPosition).get(0)));
+            recipe.LoadImageFromURL((ImageView) convertView.findViewById(R.id.list_image));
+            convertView.setOnClickListener(new RecipeOnClickListener(recipe));
         }
         if(recipesByDay.get(groupPosition).get(childPosition).get(1) != null){
             ((TextView) convertView.findViewById(R.id.recipe_name)).setText((String) recipesByDay.get(groupPosition).get(childPosition).get(1));
@@ -176,6 +179,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if(recipesByDay.get(groupPosition).get(childPosition).get(3) != null){
             ((RatingBar) convertView.findViewById(R.id.rating)).setNumStars(((int) recipesByDay.get(groupPosition).get(childPosition).get(3))/20);
         }
+
+        ImageButton imgBtn = (ImageButton) convertView.findViewById(R.id.delete_stuff);
+        imgBtn.setOnClickListener(new DeleteOnClickListener(recipe, (String) recipesByDay.get(groupPosition).get(childPosition).get(4)));
+
 
         return convertView;
 
@@ -211,6 +218,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         super.onGroupExpanded(groupPosition);
     }
 
+    /**
+     * special onclick that takes in the recipe on create so that the recipe details can be displayed
+     */
     public class RecipeOnClickListener implements View.OnClickListener{
 
         Recipe recipe;
@@ -226,6 +236,27 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             Intent intent = new Intent(activity, RecipeDetailsActivity.class);
             activity.startActivity(intent);
 
+        }
+    }
+
+    /**
+     * onclick listener takes in Recipe recipe, and String filename to allow
+     * proper deletion if the x button is clicked
+     */
+    public class DeleteOnClickListener implements View.OnClickListener{
+        Recipe recipe;
+        String fileName;
+
+        public DeleteOnClickListener(Recipe recipe, String fileName){
+            this.recipe = recipe;
+            this.fileName = fileName;
+        }
+
+        @Override
+        public void onClick(View v){
+            recipe.deleteRecipe(recipe.getRecipeId(), fileName, activity.getBaseContext());
+            Intent intent = new Intent(activity, MainActivity.class);
+            activity.startActivity(intent);
         }
     }
 }
