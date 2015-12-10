@@ -1,7 +1,7 @@
 # gtcs4911
-Fall 2015 Senior Design
-Team 10: Adam Bonk, John Brand, Mac Gebeily, Walton Yeung
-Project Basil
+Fall 2015 Senior Design  
+Team 10: Adam Bonk, John Brand, Mac Gebeily, Walton Yeung  
+Project Basil  
 
 ## To Begin
  - Have a proper development environment set up: Android Studio, GRADLE, and GitHub.
