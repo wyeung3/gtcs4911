@@ -14,7 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by bae on 12/2/15.
+ * Created to allow the ExpandableList to be used in MainActivity, keeps track of the lists of
+ * days and recipes, and returns relevant views
  */
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -23,51 +24,114 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private ArrayList<String> days;
     private ArrayList<ArrayList<ArrayList<Object>>> recipesByDay;
 
+    /**
+     *
+     * @param days - ArrayList of Strings that represent days of the week
+     * @param recipesByDay - ArrayList (for days) of ArrayLists
+     *                     (for recipes) of ArrayLists (for items in
+     *                     the list_item layout) of Objects (actual items to be put in the layout)
+     * instantiates the lists used to fill the ExpandableList
+     */
     public CustomExpandableListAdapter(ArrayList<String> days, ArrayList<ArrayList<ArrayList<Object>>> recipesByDay){
         this.days = days;
         this.recipesByDay = recipesByDay;
 
     }
 
+    /**
+     *
+     * @param inflater
+     * @param activity
+     * gives the adapter an inflater to pass out views
+     */
     public void setInflater(LayoutInflater inflater, Activity activity){
         this.inflater = inflater;
         this.activity = activity;
     }
+
+    /**
+     *
+     * @return number of days being considered (always 7)
+     */
     @Override
     public int getGroupCount() {
         return days.size();
     }
 
+    /**
+     *
+     * @param groupPosition ( day of the week int )
+     * @return number of recipes for that day
+     */
     @Override
     public int getChildrenCount(int groupPosition) {
         return recipesByDay.get(groupPosition).size();
     }
 
+    /**
+     *
+     * @param groupPosition
+     * @return null
+     * unused
+     */
     @Override
     public Object getGroup(int groupPosition) {
         return null;
     }
 
+    /**
+     *
+     * @param groupPosition
+     * @param childPosition
+     * @return null
+     * unused
+     */
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         return null;
     }
 
+    /**
+     *
+     * @param groupPosition
+     * @return 0
+     * unused
+     */
     @Override
     public long getGroupId(int groupPosition) {
         return 0;
     }
 
+    /**
+     *
+     * @param groupPosition
+     * @param childPosition
+     * @return 0
+     * unused
+     */
     @Override
     public long getChildId(int groupPosition, int childPosition) {
         return 0;
     }
 
+    /**
+     *
+     * @return false
+     * unused
+     */
     @Override
     public boolean hasStableIds() {
         return false;
     }
 
+    /**
+     *
+     * @param groupPosition day by int
+     * @param isExpanded
+     * @param convertView previously used view, or null
+     * @param parent ViewGroup
+     * @return an inflated list_group layout with the day of the week
+     */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -81,6 +145,16 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     }
 
+    /**
+     *
+     * @param groupPosition day of the week
+     * @param childPosition position of recipe in list
+     * @param isLastChild
+     * @param convertView a view to overwrite
+     * @param parent ViewGroup
+     * @return An inflated list_item layout with the image, recipe name, nutrition, and rating populated from
+     *         the ArrayList of objects
+     */
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -105,15 +179,30 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     }
 
+    /**
+     *
+     * @param groupPosition day of the week int
+     * @param childPosition recipe position int
+     * @return false
+     */
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
+
+    /**
+     *
+     * @param groupPosition int
+     */
     @Override
     public void onGroupCollapsed(int groupPosition){
         super.onGroupCollapsed(groupPosition);
     }
 
+    /**
+     *
+     * @param groupPosition int
+     */
     @Override
     public void onGroupExpanded(int groupPosition){
         super.onGroupExpanded(groupPosition);

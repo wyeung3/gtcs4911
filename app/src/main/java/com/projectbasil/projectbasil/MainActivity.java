@@ -21,7 +21,8 @@ import java.util.List;
 
 
 /**
- * Created by bae on 11/1/15.
+ * Main focus of the app, the upcoming week schedule screen. Displays upcoming meals in an
+ * ExpandableList so that each day is collapsible.
  */
 public class MainActivity extends MyActivity {
 
@@ -80,6 +81,9 @@ public class MainActivity extends MyActivity {
 
     }
 
+    /**
+     * Ensures that the ExpandableList gets updated on resume in case of any changes
+     */
     @Override
     public void onResume(){
         super.onResume();
@@ -128,7 +132,7 @@ public class MainActivity extends MyActivity {
 
     /**
      * Creates the relevant lists of days and recipes by day from existing saved text files
-     * based on older implementaiton of the schedule.
+     * based on older implementation of the schedule.
      */
     private void prepareList(){
         String[] weekdays = getResources().getStringArray(R.array.weekdays);
@@ -167,53 +171,53 @@ public class MainActivity extends MyActivity {
     }
 
 
-
+    /**
+     *
+     * @param weekday int day of the week
+     * @param meal int meal on that day (0-2 breakfast lunch dinner)
+     * @return String that is the file name that should contain the representation of that meal
+     */
     private String buildFileName(int weekday, int meal){
         String[] weekdays = getResources().getStringArray(R.array.weekdays);
         String[] meals = getResources().getStringArray(R.array.meals);
         String combine = weekdays[weekday] + "_" + meals[meal];
         return combine;
     }
-    private void setUpActionBar(){
-        ActionBar ab = getActionBar();
-        ab.setDisplayShowCustomEnabled(true);
-        ab.setDisplayShowTitleEnabled(false);
 
-
-        ab.setIcon(R.drawable.basil_true_white);
-        LayoutInflater inflator = (LayoutInflater) this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflator.inflate(R.layout.actionbar, null);
-
-        TextView title = (TextView) v.findViewById(R.id.title);
-        Typeface font = Typeface.createFromAsset(getAssets(),
-                "ArkitechMedium.ttf"); // note this is stored in two places, because I wasn't sure wich was correct
-        title.setTypeface(font);
-        title.setTextColor(Color.WHITE);
-
-        ab.setCustomView(v);
-
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setHomeButtonEnabled(true);
-    }
-
+    /**
+     * starts the search activity from the magnifying glass in the top right
+     */
     private void startSearch(){
         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * used for drawer continuity, but drawer is currently empty
+     * @param savedInstanceState
+     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         drawerToggle.syncState();
     }
+
+    /**
+     * used for drawer continuity, but drawer is currently empty
+     * @param newConfig
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * used for drawer continuity, but drawer is currently empty
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns

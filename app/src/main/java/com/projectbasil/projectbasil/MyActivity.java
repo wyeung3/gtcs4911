@@ -14,7 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * Created by bae on 12/9/15.
+ * Originally created to create a universal action bar, but needed each one to be different,
+ * so only is used for the MainActivity
  */
 public class MyActivity extends Activity {
     private DrawerLayout drawerLayout;
@@ -26,6 +27,11 @@ public class MyActivity extends Activity {
 
 
     }
+
+    /**
+     * Does the initial setup for the actionbar in MainActivity by setting icon, inflating,
+     * changing title and font.
+     */
     private void setUpActionBar(){
         ActionBar ab = getActionBar();
         ab.setDisplayShowCustomEnabled(true);
