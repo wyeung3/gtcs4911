@@ -6,6 +6,11 @@
     <string name="title_activity_inventory">InventoryActivity</string>
     <string name="title_activity_recipe_details">RecipeDetailsActivity</string>
     <string name="title_activity_scheduler">SchedulerActivity</string>
+    <string name="day_placeholder">DayPlaceholder</string>
+    <string name="recipe_name_placeholder">RecipeNamePlaceholder</string>
+    <string name="text_placeholder">Protein - x\nSugar - x\n etc </string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
 
     <string-array name="weekdays">
         <item>Sunday</item>
@@ -21,4 +26,14 @@
         <item>Lunch</item>
         <item>Dinner</item>
     </string-array>
+
+    <color name="actionbar_background">#89E994</color>
+    <color name="image_bg">#888</color>
+    <color name="list_item">#FFF</color>
+    <color name="shadow_color">#000</color>
+    <color name="text_color">#F8F8F8</color>
+    <color name="nice_blue">#CBFFFF</color>
+    <color name="nice_gray">#565656</color>
+    <color name="darker_gray">#3d3d3d</color>
+
 </resources>

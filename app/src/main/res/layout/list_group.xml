@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/darker_gray"
+    android:layout_marginBottom="10dp">
+
+    <CheckedTextView
+        android:id="@+id/list_group"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dip"
+        android:textColor="@color/nice_blue"
+        android:shadowColor="@color/shadow_color"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="5"
+        android:padding="6dip"
+        android:text="@string/day_placeholder"
+        android:gravity="center_horizontal"
+        android:background="@color/nice_gray"/>
+
+</LinearLayout>

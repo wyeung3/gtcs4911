@@ -1,6 +1,7 @@
 package com.projectbasil.projectbasil;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -25,7 +26,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class RecipeDetailsActivity extends Activity {
 
     private String bulletSymbol = "•";
     private Recipe recipe;
@@ -34,8 +35,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setTitle("");
 
         GlobalVars instance = GlobalVars.getInstance();
         recipe = instance.getMostRecentRecipe();
@@ -45,7 +46,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             rating.setText("Sorry! Only us hungry hungry programmers here!");
         }
         else {
-            getSupportActionBar().setTitle(recipe.getName());
+            getActionBar().setTitle(recipe.getName());
             TextView rating = (TextView) findViewById(R.id.recipeRating);
             rating.setText("Rating: " + recipe.getRating());
             TextView ingredients = (TextView) findViewById(R.id.recipeIngredients);
@@ -64,7 +65,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         btnRef.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SaveRecipeDialogFragment dialog = new SaveRecipeDialogFragment();
-                dialog.show(getSupportFragmentManager(), "save_recipe_dialog");
+                dialog.show(getFragmentManager(), "save_recipe_dialog");
             }
         });
     }
