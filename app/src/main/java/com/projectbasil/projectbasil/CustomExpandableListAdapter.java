@@ -1,6 +1,8 @@
 package com.projectbasil.projectbasil;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -163,6 +165,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         // list_image, recipe_name, nutrition, rating
         if(recipesByDay.get(groupPosition).get(childPosition).get(0) != null){
             ((Recipe) recipesByDay.get(groupPosition).get(childPosition).get(0)).LoadImageFromURL((ImageView) convertView.findViewById(R.id.list_image));
+            convertView.setOnClickListener(new RecipeOnClickListener((Recipe) recipesByDay.get(groupPosition).get(childPosition).get(0)));
         }
         if(recipesByDay.get(groupPosition).get(childPosition).get(1) != null){
             ((TextView) convertView.findViewById(R.id.recipe_name)).setText((String) recipesByDay.get(groupPosition).get(childPosition).get(1));
@@ -206,5 +209,23 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public void onGroupExpanded(int groupPosition){
         super.onGroupExpanded(groupPosition);
+    }
+
+    public class RecipeOnClickListener implements View.OnClickListener{
+
+        Recipe recipe;
+
+        public RecipeOnClickListener(Recipe recipe){
+            this.recipe = recipe;
+        }
+
+        @Override
+        public void onClick(View v){
+            GlobalVars instance = GlobalVars.getInstance();
+            instance.setMostRecentRecipe(recipe);
+            Intent intent = new Intent(activity, RecipeDetailsActivity.class);
+            activity.startActivity(intent);
+
+        }
     }
 }
