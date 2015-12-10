@@ -11,6 +11,7 @@
     <string name="text_placeholder">Protein - x\nSugar - x\n etc </string>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <string name="search">Search</string>
 
     <string-array name="weekdays">
         <item>Sunday</item>

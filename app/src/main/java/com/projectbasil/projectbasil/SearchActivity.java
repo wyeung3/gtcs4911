@@ -30,6 +30,7 @@ public class SearchActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setTitle("Search");
 
 
         //API23, need to check permission during runtime
